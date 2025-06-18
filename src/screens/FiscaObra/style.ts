@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#DDFFDB',
   },
   header: {
     flexDirection: 'row',
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginRight: 16,
-    color: '#007AFF',
+    color: '#314C1C',
   },
   title: {
     fontSize: 20,
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 16,
-    color: '#666',
+    color: '314C1C',
     marginBottom: 24,
   },
   formGroup: {
@@ -36,13 +36,13 @@ const styles = StyleSheet.create({
   },
   pickerContainer: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#314C1C',
     borderRadius: 8,
     overflow: 'hidden',
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#314C1C',
     borderRadius: 8,
     padding: 12,
     fontSize: 16,
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   photoButton: {
     flex: 1,
     padding: 12,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#314C1C',
     borderRadius: 8,
     alignItems: 'center',
     marginHorizontal: 4,
@@ -68,12 +68,12 @@ const styles = StyleSheet.create({
   },
   photoInfo: {
     marginTop: 8,
-    color: '#007AFF',
+    color: '#314C1C',
     fontStyle: 'italic',
   },
   locationButton: {
     padding: 12,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#314C1C',
     borderRadius: 8,
     alignItems: 'center',
   },
@@ -82,11 +82,11 @@ const styles = StyleSheet.create({
   },
   locationInfo: {
     marginTop: 8,
-    color: '#333',
+    color: '#314C1C',
   },
   locationStatus: {
     marginTop: 4,
-    color: '#666',
+    color: '#314C1C',
     fontSize: 12,
   },
   footer: {
@@ -104,19 +104,19 @@ const styles = StyleSheet.create({
   },
   cancelButtonText: {
     fontWeight: 'bold',
-    color: '#333',
+    color: '#314C1C',
   },
   saveButton: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#007AFF',
+    backgroundColor: '#314C1C',
     borderRadius: 8,
     alignItems: 'center',
     marginLeft: 8,
   },
   saveButtonText: {
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#314C1C',
   },
 });
 
