@@ -4,14 +4,14 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 24,
-    backgroundColor: '#fff',
+    backgroundColor: '#DDFFDB',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 8,
-    color: '#333',
+    color: '#314C1C',
   },
   subtitle: {
     fontSize: 16,
