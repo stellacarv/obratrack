@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: '#ddffdb',
   },
   headerButtons: {
     flexDirection: 'row',
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   headerButton: {
     padding: 8,
     borderWidth: 1,
-    borderColor: '#007AFF',
+    borderColor: '#314C1C',
     borderRadius: 4,
   },
   headerButtonText: {
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
   fotoContainer: {
     height: 200,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#314C1C',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 16,
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   infoContainer: {
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#314C1C',
     padding: 16,
     borderRadius: 8,
     marginBottom: 16,
@@ -75,17 +75,17 @@ const styles = StyleSheet.create({
   },
   mapaButton: {
     padding: 12,
-    backgroundColor: '#007AFF',
+    backgroundColor: '#314C1C',
     borderRadius: 8,
     alignItems: 'center',
     marginTop: 12,
   },
   mapaButtonText: {
-    color: '#fff',
+    color: '#314C1C',
     fontWeight: 'bold',
   },
   fiscalizacaoContainer: {
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '314C1C',
     padding: 16,
     borderRadius: 8,
     marginBottom: 16,
@@ -112,13 +112,13 @@ const styles = StyleSheet.create({
   },
   novaFiscalizacaoButton: {
     padding: 16,
-    backgroundColor: '#007AFF',
+    backgroundColor: '#314C1C',
     borderRadius: 8,
     alignItems: 'center',
     marginVertical: 24,
   },
   novaFiscalizacaoButtonText: {
-    color: '#fff',
+    color: '#314C1C',
     fontWeight: 'bold',
     fontSize: 16,
   },
