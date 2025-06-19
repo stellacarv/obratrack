@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   mapaButtonText: {
-    color: '#314C1C',
+    color: '#ddffdb',
     fontWeight: 'bold',
   },
   fiscalizacaoContainer: {
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     marginVertical: 24,
   },
   novaFiscalizacaoButtonText: {
-    color: '#314C1C',
+    color: '#ddffdb',
     fontWeight: 'bold',
     fontSize: 16,
   },
