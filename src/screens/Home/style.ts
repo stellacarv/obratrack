@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
   cardDivider: {
     height: 1,
-    backgroundColor: '#314C1C',
+    backgroundColor: '#8DAB76',
     marginVertical: 12,
   },
   detailsButton: {
