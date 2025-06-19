@@ -77,7 +77,9 @@ const styles = StyleSheet.create({
   mapaButton: {
     padding: 12,
     backgroundColor: '#314C1C',
-    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#ddffdb',
+    borderRadius: 4,
     alignItems: 'center',
     marginTop: 12,
   },
@@ -95,19 +97,21 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     marginBottom: 8,
-    color: '#333',
+    color: '#51FF00',
   },
   fiscalizacaoText: {
     fontSize: 15,
     marginBottom: 8,
+    color: "#ddffdb"
   },
   fotosTitle: {
     fontWeight: 'bold',
     marginTop: 12,
     marginBottom: 4,
+    color: "#ddffdb"
   },
   fotoLink: {
-    color: '#007AFF',
+    color: '#8DAB76',
     marginBottom: 4,
     textDecorationLine: 'underline',
   },
