@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#ddfdb',
+    backgroundColor: '#ddffdb',
   },
   header: {
     flexDirection: 'row',
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 16,
-    color: '#666',
+    color: '#314C1C',
     marginBottom: 24,
   },
   formGroup: {
@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
   },
   photoButtonText: {
     fontWeight: 'bold',
+    color: "#ddffdb"
   },
   photoInfo: {
     marginTop: 8,
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
   },
   cancelButtonText: {
     fontWeight: 'bold',
-    color: '#ddffdb',
+    color: '#314C1C',
   },
   saveButton: {
     flex: 1,

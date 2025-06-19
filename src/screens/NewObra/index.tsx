@@ -160,9 +160,9 @@ const NewObra = () => {
       </View>
 
       <View style={styles.formGroup}>
-        <Text style={styles.label}>Localizacao:</Text>
+        <Text style={styles.label}>Localização:</Text>
         <TouchableOpacity style={styles.locationButton} onPress={getCurrentLocation}>
-          <Text style={styles.locationButtonText}>OBTER LOCALIZACAO</Text>
+          <Text style={styles.locationButtonText}>OBTER LOCALIZAÇÃO</Text>
         </TouchableOpacity>
         {obra.localizacao && (
           <Text style={styles.locationInfo}>
@@ -173,7 +173,7 @@ const NewObra = () => {
       </View>
 
       <View style={styles.formGroup}>
-        <Text style={styles.label}>Descricao:</Text>
+        <Text style={styles.label}>Descrição:</Text>
         <TextInput
           style={[styles.input, styles.multilineInput]}
           value={obra.descricao}
