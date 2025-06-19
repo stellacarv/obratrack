@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
   },
   photoButtonText: {
     fontWeight: 'bold',
+    color: "#ddffdb"
   },
   photoInfo: {
     marginTop: 8,
@@ -79,6 +80,7 @@ const styles = StyleSheet.create({
   },
   locationButtonText: {
     fontWeight: 'bold',
+    color: "#ddffdb"
   },
   locationInfo: {
     marginTop: 8,
