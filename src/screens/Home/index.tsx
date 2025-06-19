@@ -46,8 +46,8 @@ const Home = () => {
 
       {obras.map((obra, index) => (
         <View key={index} style={styles.card}>
-          <Text style={styles.cardTitle}>Nome do Obra: {obra.nome}</Text>
-          <Text>Respectador: {obra.respectador}</Text>
+          <Text style={styles.cardTitle}>Nome da Obra: {obra.nome}</Text>
+          <Text>Responsável: {obra.respectador}</Text>
           <Text>Status: {obra.status} (dir. Facadização: {obra.facadizacao}) ({obra.data})</Text>
           
           <TouchableOpacity 

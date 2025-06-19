@@ -26,10 +26,12 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 8,
     marginBottom: 16,
+    boxShadow: "6"
   },
   cardTitle: {
     fontWeight: 'bold',
     marginBottom: 8,
+    color: "#ddffdb"
   },
   cardDivider: {
     height: 1,
@@ -39,9 +41,10 @@ const styles = StyleSheet.create({
   detailsButton: {
     marginTop: 12,
     paddingVertical: 8,
+    color: "#8DAB76"
   },
   detailsButtonText: {
-    color: '#007AFF',
+    color: '#ddffdb',
     fontWeight: 'bold',
   },
   footer: {
