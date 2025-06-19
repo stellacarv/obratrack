@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 16,
-    color: '314C1C',
+    color: '#666',
     marginBottom: 24,
   },
   formGroup: {
