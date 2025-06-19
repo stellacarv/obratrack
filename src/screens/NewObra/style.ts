@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
   },
   locationButtonText: {
     fontWeight: 'bold',
+    color: "#ddffdb"
   },
   locationInfo: {
     marginTop: 8,
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
   cancelButton: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#f0f0f0',
+    color: '#314C1C',
     borderRadius: 8,
     alignItems: 'center',
     marginRight: 8,
