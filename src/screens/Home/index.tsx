@@ -11,29 +11,29 @@ const Home = () => {
       nome: 'Edifício Alpha',
       respectador: 'Arq. Aline Silva',
       status: 'Atrasada',
-      facadizacao: '',
-      data: '01/06/2025'
+      facadizacao: 'últ. fiscalização: 01/06',
+      data: ''
     },
     {
       nome: ' Edifício Souza Alencar',
       respectador: 'Arq. Pedro Campos',
       status: 'Em dia',
       facadizacao: 'últ. fiscalização: 03/06',
-      data: '06'
+      data: ''
     },
     {
-      nome: 'Gifiloso Soatar Nero',
-      respectador: 'Arg. Leia Lima',
-      status: 'Em da',
-      facadizacao: '28',
-      data: '06'
+      nome: 'Edifício Bossa Nova',
+      respectador: 'Arq. Laís Lima',
+      status: 'Em dia',
+      facadizacao: 'últ. fiscalização: 29/05',
+      data: ''
     },
     {
-      nome: 'Gifiloso Jaguário',
-      respectador: 'Arg. Matheus-Bucarue',
-      status: 'Em da',
-      facadizacao: '1',
-      data: '06'
+      nome: 'Edifício Jaqueira',
+      respectador: 'Arq. Matheus Buarque',
+      status: 'Em dia',
+      facadizacao: 'últ. fiscalização: 11/06',
+      data: ''
     }
   ];
 
