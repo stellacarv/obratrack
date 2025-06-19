@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    color: '#314C1C',
+    color: '#fffff',
     fontSize: 16,
     fontWeight: 'bold',
   },
