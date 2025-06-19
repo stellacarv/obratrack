@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: '#ddffdb',
   },
   header: {
     fontSize: 24,
@@ -13,16 +13,16 @@ const styles = StyleSheet.create({
   },
   subheader: {
     fontSize: 16,
-    color: '#666',
+    color: '##314C1C',
     marginBottom: 16,
   },
   divider: {
     height: 1,
-    backgroundColor: '#ccc',
+    backgroundColor: 'ddffdb',
     marginVertical: 16,
   },
   card: {
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '##314C1C',
     padding: 16,
     borderRadius: 8,
     marginBottom: 16,
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
   cardDivider: {
     height: 1,
-    backgroundColor: '#eee',
+    backgroundColor: '##314C1C',
     marginVertical: 12,
   },
   detailsButton: {
@@ -53,21 +53,21 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '##314C1C',
     flex: 1,
     marginHorizontal: 8,
     alignItems: 'center',
     marginBottom: 50
   },
   primaryButton: {
-    backgroundColor: '#007AFF',
-    borderColor: '#007AFF',
+    backgroundColor: '##314C1C',
+    borderColor: '##314C1C',
   },
   footerButtonText: {
     fontWeight: 'bold',
   },
   primaryButtonText: {
-    color: '#fff',
+    color: '#314C1C',
   },
 });
 export default styles;
