@@ -19,15 +19,15 @@ const ObraDetails = () => {
 
   const fiscalizacoes = [
     {
-      data: '01/05/2025',
-      status: '1m',
+      data: '01/06/2025',
+      status: 'Atrasada',
       descricao: 'Equipamento parado, dificultando o andamento da obra',
       fotos: ['https://www.fiscali.org'],
     },
     {
       data: '31/05/2025',
-      status: '1m',
-      descricao: 'Cima em andamento, regular',
+      status: 'Em dia',
+      descricao: 'Obra em andamento, regular',
       fotos: ['https://www.fiscali.org'],
     },
   ];
@@ -101,7 +101,7 @@ const ObraDetails = () => {
 
       {/* Fiscalizações */}
       <Text style={styles.sectionTitle}>FISCALIZAÇÕES</Text>
-      <Text style={styles.sectionSubtitle}>Visualize os últimos fiscalizações realizadas</Text>
+      <Text style={styles.sectionSubtitle}>Visualize as últimas fiscalizações realizadas</Text>
 
       {fiscalizacoes.map((fiscalizacao, index) => (
         <View key={index} style={styles.fiscalizacaoContainer}>

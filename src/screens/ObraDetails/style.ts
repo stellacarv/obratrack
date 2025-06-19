@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   headerButtonText: {
-    color: '#007AFF',
+    color: '#314C1C',
     fontSize: 12,
     fontWeight: 'bold',
   },
@@ -67,11 +67,12 @@ const styles = StyleSheet.create({
   },
   infoLabel: {
     fontWeight: 'bold',
-    color: '#333',
+    color: '#ddffdb',
   },
   infoText: {
     marginBottom: 8,
     fontSize: 15,
+    color: "#ddffdb"
   },
   mapaButton: {
     padding: 12,
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   fiscalizacaoContainer: {
-    backgroundColor: '314C1C',
+    backgroundColor: '#314C1C',
     padding: 16,
     borderRadius: 8,
     marginBottom: 16,
