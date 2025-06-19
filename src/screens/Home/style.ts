@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
   card: {
-    backgroundColor: '#314C1C',
+    backgroundColor: '#4B712D',
     padding: 16,
     borderRadius: 8,
     marginBottom: 16,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     color: "#8DAB76"
   },
   detailsButtonText: {
-    color: '#ddffdb',
+    color: '#51FF00',
     fontWeight: 'bold',
   },
   footer: {
