@@ -13,16 +13,16 @@ const styles = StyleSheet.create({
   },
   subheader: {
     fontSize: 16,
-    color: '##314C1C',
+    color: '#314C1C',
     marginBottom: 16,
   },
   divider: {
     height: 1,
-    backgroundColor: 'ddffdb',
+    backgroundColor: '#ddffdb',
     marginVertical: 16,
   },
   card: {
-    backgroundColor: '##314C1C',
+    backgroundColor: '#314C1C',
     padding: 16,
     borderRadius: 8,
     marginBottom: 16,
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
   cardDivider: {
     height: 1,
-    backgroundColor: '##314C1C',
+    backgroundColor: '#314C1C',
     marginVertical: 12,
   },
   detailsButton: {
@@ -53,21 +53,21 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '##314C1C',
+    borderColor: '#314C1C',
     flex: 1,
     marginHorizontal: 8,
     alignItems: 'center',
     marginBottom: 50
   },
   primaryButton: {
-    backgroundColor: '##314C1C',
-    borderColor: '##314C1C',
+    backgroundColor: '#314C1C',
+    borderColor: '#ddffdb',
   },
   footerButtonText: {
     fontWeight: 'bold',
   },
   primaryButtonText: {
-    color: '#314C1C',
+    color: '#ddffdb',
   },
 });
 export default styles;
