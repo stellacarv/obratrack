@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
   cancelButtonText: {
     fontWeight: 'bold',
-    color: 'ddffdb',
+    color: '#ddffdb',
   },
   saveButton: {
     flex: 1,
