@@ -8,17 +8,17 @@ const Home = () => {
 
   const obras = [
     {
-      nome: 'Gifiloso Agiva',
-      respectador: 'Arg. Alma Sácio',
-      status: 'Atronada',
-      facadizacao: '0',
-      data: '06'
+      nome: 'Edifício Alpha',
+      respectador: 'Arq. Aline Silva',
+      status: 'Atrasada',
+      facadizacao: '',
+      data: '01/06/2025'
     },
     {
-      nome: 'Gifiloso Soatar Alevoor',
-      respectador: 'Arg. Pedro Campos',
-      status: 'Em da',
-      facadizacao: '08',
+      nome: ' Edifício Souza Alencar',
+      respectador: 'Arq. Pedro Campos',
+      status: 'Em dia',
+      facadizacao: 'últ. fiscalização: 03/06',
       data: '06'
     },
     {
