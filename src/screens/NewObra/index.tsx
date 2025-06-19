@@ -173,7 +173,7 @@ const NewObra = () => {
       </View>
 
       <View style={styles.formGroup}>
-        <Text style={styles.label}>Descriqao:</Text>
+        <Text style={styles.label}>Descricao:</Text>
         <TextInput
           style={[styles.input, styles.multilineInput]}
           value={obra.descricao}
