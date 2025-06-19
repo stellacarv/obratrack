@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginRight: 16,
-    color: '##314C1C',
+    color: '#314C1C',
   },
   title: {
     fontSize: 20,
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '##314C1C',
+    borderColor: '#314C1C',
     borderRadius: 8,
     padding: 12,
     fontSize: 16,
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   photoButton: {
     flex: 1,
     padding: 12,
-    backgroundColor: '##314C1C',
+    backgroundColor: '#314C1C',
     borderRadius: 8,
     alignItems: 'center',
     marginHorizontal: 4,
@@ -62,12 +62,12 @@ const styles = StyleSheet.create({
   },
   photoInfo: {
     marginTop: 8,
-    color: '##314C1C',
+    color: '#314C1C',
     fontStyle: 'italic',
   },
   locationButton: {
     padding: 12,
-    backgroundColor: '##314C1C',
+    backgroundColor: '#314C1C',
     borderRadius: 8,
     alignItems: 'center',
   },
@@ -76,11 +76,11 @@ const styles = StyleSheet.create({
   },
   locationInfo: {
     marginTop: 8,
-    color: '##314C1C',
+    color: '#314C1C',
   },
   locationStatus: {
     marginTop: 4,
-    color: '##314C1C',
+    color: '#ddffdb',
     fontSize: 12,
   },
   footer: {
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   },
   cancelButtonText: {
     fontWeight: 'bold',
-    color: '##314C1C',
+    color: '#ddffdb',
   },
   saveButton: {
     flex: 1,
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   saveButtonText: {
     fontWeight: 'bold',
-    color: '##314C1C',
+    color: '#ddffdb',
   },
 });
 
