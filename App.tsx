@@ -13,7 +13,7 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   return (
-    <PaperProvider> {/* ✅ Envolve o app com o Provider */}
+    <PaperProvider> {/* Envolve o app com o Provider */}
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Home">
           <Stack.Screen name="Home" component={Home} />
