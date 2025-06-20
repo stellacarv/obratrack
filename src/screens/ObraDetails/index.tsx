@@ -120,15 +120,18 @@ const ObraDetails = () => {
 
       {/* Localização */}
       <Text style={styles.sectionTitle}>Localização</Text>
-      <View style={styles.infoContainer}>
-        <Text style={styles.infoText}>
-          <Text style={styles.infoLabel}>Latitude:</Text> {obra.localizacao.latitude}{"\n"}
-          <Text style={styles.infoLabel}>Longitude:</Text> {obra.localizacao.longitude}
-        </Text>
-        <TouchableOpacity style={styles.mapaButton} onPress={handleVerMapa}>
-          <Text style={styles.mapaButtonText}>VER MAPA</Text>
-        </TouchableOpacity>
-      </View>
+     <View style={styles.infoContainer}>
+  <Text style={styles.infoText}>
+    <Text style={styles.infoLabel}>Latitude:</Text> {obra.localizacao.latitude}
+  </Text>
+  <Text style={styles.infoText}>
+    <Text style={styles.infoLabel}>Longitude:</Text> {obra.localizacao.longitude}
+  </Text>
+  <TouchableOpacity style={styles.mapaButton} onPress={handleVerMapa}>
+    <Text style={styles.mapaButtonText}>VER MAPA</Text>
+  </TouchableOpacity>
+</View>
+
 
       {/* Fiscalizações */}
       <Text style={styles.sectionTitle}>FISCALIZAÇÕES</Text>
