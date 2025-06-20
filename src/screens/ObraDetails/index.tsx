@@ -1,36 +1,55 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Image, Linking } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, ScrollView, Image, Linking, ActivityIndicator } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import styles from './style';
+
+type Obra = {
+  _id: string;
+  nome: string;
+  responsavel: string;
+  data_inicio: string;
+  data_fim: string;
+  descricao: string;
+  localizacao: { latitude: number; longitude: number };
+  foto: string;
+};
+
+type Fiscalizacao = {
+  _id: string;
+  data: string;
+  status: string;
+  observacoes: string;
+  foto: string;
+};
 
 const ObraDetails = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { obraId } = route.params as { obraId: string };
 
-  // Dados mockados (serão substituídos pela integração com backend)
-  const obra = {
-    nome: 'Edifício Alpha',
-    responsavel: 'Arq. Aline Silva',
-    dataInicio: '20/05/2025',
-    previsaoTermino: '20/01/2026',
-    status: 'Atrasada (dit.fiscalização: 01/06/2025)',
-    endereco: 'Rua Antônio Falcão, 700, Boa Viagem',
-    fotoUrl: null, // Será preenchido pela integração
-  };
+  const [obra, setObra] = useState<Obra | null>(null);
+  const [fiscalizacoes, setFiscalizacoes] = useState<Fiscalizacao[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const fiscalizacoes = [
-    {
-      data: '01/06/2025',
-      status: 'Atrasada',
-      descricao: 'Equipamento parado, dificultando o andamento da obra',
-      fotos: ['https://www.fiscali.org'],
-    },
-    {
-      data: '31/05/2025',
-      status: 'Em dia',
-      descricao: 'Obra em andamento, regular',
-      fotos: ['https://www.fiscali.org'],
-    },
-  ];
+  useEffect(() => {
+    const fetchObraAndFiscalizacoes = async () => {
+      try {
+        const resObra = await fetch(`http://192.168.1.103:3000/api/obras/${obraId}`);
+        const resFisc = await fetch(`http://192.168.1.103:3000/api/fiscalizacoes/obra/${obraId}`);
+        const obraData = await resObra.json();
+        const fiscData = await resFisc.json();
+
+        setObra(obraData);
+        setFiscalizacoes(fiscData);
+      } catch (error) {
+        console.error("Erro ao carregar dados:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchObraAndFiscalizacoes();
+  }, [obraId]);
 
   const handleEnviarEmail = () => {
     navigation.navigate('EnviarEmail' as never);
@@ -41,10 +60,19 @@ const ObraDetails = () => {
   };
 
   const handleVerMapa = () => {
-    // Abre o endereço no mapa (Google Maps)
-    const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(obra.endereco)}`;
+    if (!obra) return;
+    const url = `https://www.google.com/maps/search/?api=1&query=${obra.localizacao.latitude},${obra.localizacao.longitude}`;
     Linking.openURL(url).catch(err => console.error("Erro ao abrir mapa: ", err));
   };
+
+  if (loading || !obra) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#000" />
+        <Text style={{ textAlign: 'center', marginTop: 10 }}>Carregando detalhes da obra...</Text>
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -60,7 +88,7 @@ const ObraDetails = () => {
           style={styles.headerButton}
           onPress={handleEnviarEmail}
         >
-          <Text style={styles.headerButtonText}>ENVIAR POR EMAIL</Text>
+        <Text style={styles.headerButtonText}>ENVIAR POR EMAIL</Text>
         </TouchableOpacity>
       </View>
 
@@ -73,8 +101,8 @@ const ObraDetails = () => {
 
       {/* Espaço para foto */}
       <View style={styles.fotoContainer}>
-        {obra.fotoUrl ? (
-          <Image source={{ uri: obra.fotoUrl }} style={styles.foto} />
+        {obra.foto ? (
+          <Image source={{ uri: obra.foto }} style={styles.foto} />
         ) : (
           <Text style={styles.fotoPlaceholder}>Espaço para foto</Text>
         )}
@@ -85,15 +113,18 @@ const ObraDetails = () => {
       <View style={styles.infoContainer}>
         <Text style={styles.infoText}><Text style={styles.infoLabel}>Nome da Obra:</Text> {obra.nome}</Text>
         <Text style={styles.infoText}><Text style={styles.infoLabel}>Responsável:</Text> {obra.responsavel}</Text>
-        <Text style={styles.infoText}><Text style={styles.infoLabel}>Data de Início:</Text> {obra.dataInicio}</Text>
-        <Text style={styles.infoText}><Text style={styles.infoLabel}>Previsão de Término:</Text> {obra.previsaoTermino}</Text>
-        <Text style={styles.infoText}><Text style={styles.infoLabel}>Status:</Text> {obra.status}</Text>
+        <Text style={styles.infoText}><Text style={styles.infoLabel}>Data de Início:</Text> {new Date(obra.data_inicio).toLocaleDateString()}</Text>
+        <Text style={styles.infoText}><Text style={styles.infoLabel}>Previsão de Término:</Text> {new Date(obra.data_fim).toLocaleDateString()}</Text>
+        <Text style={styles.infoText}><Text style={styles.infoLabel}>Descrição:</Text> {obra.descricao}</Text>
       </View>
 
       {/* Localização */}
       <Text style={styles.sectionTitle}>Localização</Text>
       <View style={styles.infoContainer}>
-        <Text style={styles.infoText}><Text style={styles.infoLabel}>Endereço:</Text> {obra.endereco}</Text>
+        <Text style={styles.infoText}>
+          <Text style={styles.infoLabel}>Latitude:</Text> {obra.localizacao.latitude}{"\n"}
+          <Text style={styles.infoLabel}>Longitude:</Text> {obra.localizacao.longitude}
+        </Text>
         <TouchableOpacity style={styles.mapaButton} onPress={handleVerMapa}>
           <Text style={styles.mapaButtonText}>VER MAPA</Text>
         </TouchableOpacity>
@@ -103,20 +134,21 @@ const ObraDetails = () => {
       <Text style={styles.sectionTitle}>FISCALIZAÇÕES</Text>
       <Text style={styles.sectionSubtitle}>Visualize as últimas fiscalizações realizadas</Text>
 
-      {fiscalizacoes.map((fiscalizacao, index) => (
-        <View key={index} style={styles.fiscalizacaoContainer}>
-          <Text style={styles.fiscalizacaoData}><Text style={styles.infoLabel}>Data:</Text> {fiscalizacao.data}</Text>
-          <Text style={styles.fiscalizacaoText}><Text style={styles.infoLabel}>Status:</Text> {fiscalizacao.status}</Text>
-          <Text style={styles.fiscalizacaoText}><Text style={styles.infoLabel}>Descrição:</Text> {fiscalizacao.descricao}</Text>
-          
-          <Text style={styles.fotosTitle}>Fotografias registradas:</Text>
-          {fiscalizacao.fotos.map((foto, fotoIndex) => (
-            <TouchableOpacity key={fotoIndex} onPress={() => Linking.openURL(foto)}>
-              <Text style={styles.fotoLink}>{foto}</Text>
+      {fiscalizacoes.length === 0 ? (
+        <Text style={{ textAlign: 'center', marginTop: 10 }}>Nenhuma fiscalização registrada.</Text>
+      ) : (
+        fiscalizacoes.map((fiscalizacao) => (
+          <View key={fiscalizacao._id} style={styles.fiscalizacaoContainer}>
+            <Text style={styles.fiscalizacaoData}><Text style={styles.infoLabel}>Data:</Text> {new Date(fiscalizacao.data).toLocaleDateString()}</Text>
+            <Text style={styles.fiscalizacaoText}><Text style={styles.infoLabel}>Status:</Text> {fiscalizacao.status}</Text>
+            <Text style={styles.fiscalizacaoText}><Text style={styles.infoLabel}>Observações:</Text> {fiscalizacao.observacoes}</Text>
+            <Text style={styles.fotosTitle}>Fotografia registrada:</Text>
+            <TouchableOpacity onPress={() => Linking.openURL(fiscalizacao.foto)}>
+              <Text style={styles.fotoLink}>{fiscalizacao.foto}</Text>
             </TouchableOpacity>
-          ))}
-        </View>
-      ))}
+          </View>
+        ))
+      )}
 
       {/* Botão para nova fiscalização */}
       <TouchableOpacity 

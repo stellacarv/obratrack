@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 8,
     marginBottom: 16,
-    boxShadow: "6"
   },
   cardTitle: {
     fontWeight: 'bold',
@@ -67,7 +66,7 @@ const styles = StyleSheet.create({
     borderColor: '#ddffdb',
   },
   footerButtonText: {
-    fontWeight: 'bold',
+  fontWeight: 'bold',
   },
   primaryButtonText: {
     color: '#ddffdb',

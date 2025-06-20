@@ -36,9 +36,14 @@ const styles = StyleSheet.create({
   },
   pickerContainer: {
     borderWidth: 1,
-    borderColor: '#314C1C',
+    borderColor: '#ccc',
     borderRadius: 8,
-    overflow: 'hidden',
+    paddingHorizontal: 10,
+    paddingVertical: 12,
+    marginBottom: 10,
+    backgroundColor: '#fff',
+    marginTop: 8,       // <-- Adicionado
+    zIndex: 10,         // <-- Adicionado (resolve problemas de toque)
   },
   input: {
     borderWidth: 1,

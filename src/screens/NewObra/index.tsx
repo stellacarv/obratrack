@@ -6,6 +6,11 @@ import * as Location from 'expo-location';
 import { Camera } from 'expo-camera';
 import styles from './style';
 
+const formatarData = (dataStr: string): string => {
+  const [dia, mes, ano] = dataStr.split('/');
+  return `${ano}-${mes}-${dia}T00:00:00.000Z`;
+};
+
 const NewObra = () => {
   const navigation = useNavigation();
   const [obra, setObra] = useState({
@@ -87,13 +92,65 @@ const NewObra = () => {
     }
   };
 
-  const handleSave = () => {
-    // Aqui você pode adicionar a lógica para salvar a obra
-    Alert.alert('Sucesso', 'Obra cadastrada com sucesso!');
-    navigation.goBack();
-  };
+ const formatarData = (dataStr: string): string => {
+  const [dia, mes, ano] = dataStr.split('/');
+  return `${ano}-${mes}-${dia}T00:00:00.000Z`;
+};
 
-  const handleCancel = () => {
+const handleSave = async () => {
+  // Verificação manual para campos específicos
+  if (
+    obra.nome.trim() === '' ||
+    obra.responsavel.trim() === '' ||
+    obra.dataInicio.trim() === '' ||
+    obra.previsaoTermino.trim() === '' ||
+    obra.descricao.trim() === '' ||
+    !obra.foto ||
+    !obra.localizacao ||
+    !obra.localizacao.coords?.latitude ||
+    !obra.localizacao.coords?.longitude
+  ) {
+    Alert.alert('Erro', 'Por favor, preencha todos os campos corretamente.');
+    return;
+  }
+
+  try {
+    const response = await fetch('http://192.168.1.103:3000/api/obras', {
+
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        nome: obra.nome,
+        responsavel: obra.responsavel,
+        data_inicio: formatarData(obra.dataInicio),
+        data_fim: formatarData(obra.previsaoTermino),
+        descricao: obra.descricao,
+        foto: obra.foto,
+        localizacao: {
+          latitude: obra.localizacao.coords.latitude,
+          longitude: obra.localizacao.coords.longitude,
+        },
+      }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      Alert.alert('Sucesso', 'Obra cadastrada com sucesso!');
+      navigation.goBack();
+    } else {
+      const erro = data?.errors?.[0]?.msg || data.message || 'Erro ao cadastrar obra';
+      Alert.alert('Erro', erro);
+    }
+  } catch (error) {
+    console.error('Erro ao enviar:', error);
+    Alert.alert('Erro', 'Não foi possível conectar ao servidor');
+  }
+};
+
+   const handleCancel = () => {
     navigation.goBack();
   };
 
@@ -137,7 +194,7 @@ const NewObra = () => {
       </View>
 
       <View style={styles.formGroup}>
-        <Text style={styles.label}>Previsao de termino:</Text>
+        <Text style={styles.label}>Previsão de término:</Text>
         <TextInput
           style={styles.input}
           value={obra.previsaoTermino}

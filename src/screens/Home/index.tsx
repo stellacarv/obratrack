@@ -1,71 +1,90 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, ScrollView, Alert, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styles from './style';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../@types/navigation';
+interface Obra {
+  _id: string;
+  nome: string;
+  responsavel: string;
+  descricao: string;
+  data_inicio: string;
+  data_fim: string;
+}
 
-const Home = () => {
-  const navigation = useNavigation();
+  type NavigationProps = StackNavigationProp<RootStackParamList, 'Home'>;
+  const Home = () => {
+  const navigation = useNavigation<NavigationProps>();
+  const [obras, setObras] = useState<Obra[]>([]);
+  const [carregando, setCarregando] = useState(true);
 
-  const obras = [
-    {
-      nome: 'Edifício Alpha',
-      respectador: 'Arq. Aline Silva',
-      status: 'Atrasada',
-      facadizacao: 'últ. fiscalização: 01/06',
-      data: ''
-    },
-    {
-      nome: ' Edifício Souza Alencar',
-      respectador: 'Arq. Pedro Campos',
-      status: 'Em dia',
-      facadizacao: 'últ. fiscalização: 03/06',
-      data: ''
-    },
-    {
-      nome: 'Edifício Bossa Nova',
-      respectador: 'Arq. Laís Lima',
-      status: 'Em dia',
-      facadizacao: 'últ. fiscalização: 29/05',
-      data: ''
-    },
-    {
-      nome: 'Edifício Jaqueira',
-      respectador: 'Arq. Matheus Buarque',
-      status: 'Em dia',
-      facadizacao: 'últ. fiscalização: 11/06',
-      data: ''
-    }
-  ];
+  // Aqui você coloca o IP do seu computador
+  const API_URL = 'http://192.168.1.103:3000/api/obras';
+
+  useEffect(() => {
+    const carregarObras = async () => {
+      try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        setObras(data);
+      } catch (error) {
+        console.error('Erro ao buscar obras:', error);
+        Alert.alert('Erro', 'Não foi possível carregar as obras');
+      } finally {
+        setCarregando(false);
+      }
+    };
+
+    carregarObras();
+  }, []);
+
+  if (carregando) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#000" />
+        <Text style={{ textAlign: 'center', marginTop: 10 }}>Carregando obras...</Text>
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>OBRAS CADASTRADAS</Text>
       <Text style={styles.subheader}>Visualize as obras cadastradas recentemente</Text>
-      
+
       <View style={styles.divider} />
 
-      {obras.map((obra, index) => (
-        <View key={index} style={styles.card}>
-          <Text style={styles.cardTitle}>Nome da Obra: {obra.nome}</Text>
-          <Text>Responsável: {obra.respectador}</Text>
-          <Text>Status: {obra.status} (dir. Facadização: {obra.facadizacao}) ({obra.data})</Text>
-          
-          <TouchableOpacity 
-            style={styles.detailsButton}
-            onPress={() => navigation.navigate('ObraDetails' as never)}
-          >
-            <Text style={styles.detailsButtonText}>DETALHES</Text>
-          </TouchableOpacity>
-          
-          {index < obras.length - 1 && <View style={styles.cardDivider} />}
-        </View>
-      ))}
+      {obras.length === 0 ? (
+        <Text style={{ textAlign: 'center', marginTop: 20 }}>Nenhuma obra cadastrada ainda.</Text>
+      ) : (
+        obras.map((obra, index) => (
+          <View key={obra._id} style={styles.card}>
+            <Text style={styles.cardTitle}>Nome da Obra: {obra.nome}</Text>
+            <Text>Responsável: {obra.responsavel}</Text>
+            <Text>Descrição: {obra.descricao}</Text>
+            <Text>
+              Início: {new Date(obra.data_inicio).toLocaleDateString()} | Fim: {new Date(obra.data_fim).toLocaleDateString()}
+            </Text>
+
+            <TouchableOpacity 
+  style={styles.detailsButton}
+  onPress={() => navigation.navigate('ObraDetails', { obraId: obra._id })}>
+  <Text style={styles.detailsButtonText}>DETALHES</Text>
+</TouchableOpacity>
+
+
+
+            {index < obras.length - 1 && <View style={styles.cardDivider} />}
+          </View>
+        ))
+      )}
 
       <View style={styles.footer}>
         <TouchableOpacity style={styles.footerButton}>
           <Text style={styles.footerButtonText}>VER TUDO</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity 
           style={[styles.footerButton, styles.primaryButton]}
           onPress={() => navigation.navigate('NewObra' as never)}
