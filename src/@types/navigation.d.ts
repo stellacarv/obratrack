@@ -1,7 +1,7 @@
 export type RootStackParamList = {
   Home: undefined;
-  ObraDetails: { obraId: string };
   NewObra: undefined;
-  EnviarEmail: undefined;
-  FiscaObra: undefined;
+  ObraDetails: { obraId: string };
+  FiscaObra: { obraId: string };
+  EnviarEmail: { obraId: string }; // ✅ aqui definimos que EnviarEmail recebe um param
 };

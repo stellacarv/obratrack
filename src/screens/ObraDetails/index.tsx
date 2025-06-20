@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, Image, Linking, ActivityIndicator } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../@types/navigation';
 import styles from './style';
+
+// Tipagens
+type ObraDetailsRouteProp = RouteProp<RootStackParamList, 'ObraDetails'>;
+type ObraDetailsNavigationProp = NativeStackNavigationProp<RootStackParamList, 'ObraDetails'>;
 
 type Obra = {
   _id: string;
@@ -23,9 +29,9 @@ type Fiscalizacao = {
 };
 
 const ObraDetails = () => {
-  const navigation = useNavigation();
-  const route = useRoute();
-  const { obraId } = route.params as { obraId: string };
+  const navigation = useNavigation<ObraDetailsNavigationProp>();
+  const route = useRoute<ObraDetailsRouteProp>();
+  const { obraId } = route.params;
 
   const [obra, setObra] = useState<Obra | null>(null);
   const [fiscalizacoes, setFiscalizacoes] = useState<Fiscalizacao[]>([]);
@@ -52,11 +58,15 @@ const ObraDetails = () => {
   }, [obraId]);
 
   const handleEnviarEmail = () => {
-    navigation.navigate('EnviarEmail' as never);
+    if (obra) {
+      navigation.navigate('EnviarEmail', { obraId: obra._id });
+    }
   };
 
   const handleRegistrarFiscalizacao = () => {
-    navigation.navigate('FiscaObra' as never);
+    if (obra) {
+      navigation.navigate('FiscaObra', { obraId: obra._id });
+    }
   };
 
   const handleVerMapa = () => {
@@ -88,7 +98,7 @@ const ObraDetails = () => {
           style={styles.headerButton}
           onPress={handleEnviarEmail}
         >
-        <Text style={styles.headerButtonText}>ENVIAR POR EMAIL</Text>
+          <Text style={styles.headerButtonText}>ENVIAR POR EMAIL</Text>
         </TouchableOpacity>
       </View>
 
@@ -120,18 +130,17 @@ const ObraDetails = () => {
 
       {/* Localização */}
       <Text style={styles.sectionTitle}>Localização</Text>
-     <View style={styles.infoContainer}>
-  <Text style={styles.infoText}>
-    <Text style={styles.infoLabel}>Latitude:</Text> {obra.localizacao.latitude}
-  </Text>
-  <Text style={styles.infoText}>
-    <Text style={styles.infoLabel}>Longitude:</Text> {obra.localizacao.longitude}
-  </Text>
-  <TouchableOpacity style={styles.mapaButton} onPress={handleVerMapa}>
-    <Text style={styles.mapaButtonText}>VER MAPA</Text>
-  </TouchableOpacity>
-</View>
-
+      <View style={styles.infoContainer}>
+        <Text style={styles.infoText}>
+          <Text style={styles.infoLabel}>Latitude:</Text> {obra.localizacao.latitude}
+        </Text>
+        <Text style={styles.infoText}>
+          <Text style={styles.infoLabel}>Longitude:</Text> {obra.localizacao.longitude}
+        </Text>
+        <TouchableOpacity style={styles.mapaButton} onPress={handleVerMapa}>
+          <Text style={styles.mapaButtonText}>VER MAPA</Text>
+        </TouchableOpacity>
+      </View>
 
       {/* Fiscalizações */}
       <Text style={styles.sectionTitle}>FISCALIZAÇÕES</Text>

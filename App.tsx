@@ -1,4 +1,5 @@
 import React from 'react';
+import { RootStackParamList } from './src/@types/navigation'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider as PaperProvider } from 'react-native-paper'; // ✅ Importação adicionada
@@ -9,7 +10,8 @@ import ObraDetails from './src/screens/ObraDetails';
 import FiscaObra from './src/screens/FiscaObra';
 import EnviarEmail from './src/screens/EnviarEmail';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
 
 function App() {
   return (
