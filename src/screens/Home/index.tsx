@@ -1,3 +1,4 @@
+import { useIsFocused, useRoute } from '@react-navigation/native'; 
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, Alert, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -14,6 +15,8 @@ interface Obra {
 }
 
   type NavigationProps = StackNavigationProp<RootStackParamList, 'Home'>;
+  const isFocused = useIsFocused();
+  const route = useRoute();
   const Home = () => {
   const navigation = useNavigation<NavigationProps>();
   const [obras, setObras] = useState<Obra[]>([]);
@@ -22,31 +25,26 @@ interface Obra {
 
   const API_URL = 'http://192.168.1.103:3000/api/obras';
 
-  useEffect(() => {
-    const carregarObras = async () => {
-      try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
-        setObras(data);
-      } catch (error) {
-        console.error('Erro ao buscar obras:', error);
-        Alert.alert('Erro', 'Não foi possível carregar as obras');
-      } finally {
-        setCarregando(false);
-      }
-    };
+useEffect(() => {
+  const carregarObras = async () => {
+    setCarregando(true);
+    try {
+      const response = await fetch(API_URL);
+      const data = await response.json();
+      setObras(data);
+    } catch (error) {
+      console.error('Erro ao buscar obras:', error);
+      Alert.alert('Erro', 'Não foi possível carregar as obras');
+    } finally {
+      setCarregando(false);
+    }
+  };
 
+  if (isFocused || route.params?.atualizar) {
     carregarObras();
-  }, []);
-
-  if (carregando) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" color="#000" />
-        <Text style={{ textAlign: 'center', marginTop: 10 }}>Carregando obras...</Text>
-      </View>
-    );
   }
+}, [isFocused, route.params?.atualizar]);
+
 
   return (
     <ScrollView style={styles.container}>
