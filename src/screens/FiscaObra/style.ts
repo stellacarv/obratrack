@@ -18,12 +18,13 @@ const styles = StyleSheet.create({
     color: "#314C1C",
   },
   title: {
-    fontSize: 20,
+    fontSize: 23,
     fontWeight: "bold",
+    color: "#314C1C"
   },
   subtitle: {
     fontSize: 16,
-    color: "#666",
+    color: "#4B712D",
     marginBottom: 24,
   },
   formGroup: {
@@ -137,6 +138,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 24,
+    
   },
   cancelButton: {
     flex: 1,
