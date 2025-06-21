@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
   instruction: {
     fontSize: 12,
     textAlign: 'center',
+    fontStyle: "italic",
     marginBottom: 16,
     color: '#4B712D',
   },
