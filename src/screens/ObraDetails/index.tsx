@@ -155,9 +155,13 @@ const ObraDetails = () => {
             <Text style={styles.fiscalizacaoText}><Text style={styles.infoLabel}>Status:</Text> {fiscalizacao.status}</Text>
             <Text style={styles.fiscalizacaoText}><Text style={styles.infoLabel}>Observações:</Text> {fiscalizacao.observacoes}</Text>
             <Text style={styles.fotosTitle}>Fotografia registrada:</Text>
-            <TouchableOpacity onPress={() => Linking.openURL(fiscalizacao.foto)}>
-              <Text style={styles.fotoLink}>{fiscalizacao.foto}</Text>
-            </TouchableOpacity>
+            <Text style={styles.fotosTitle}>Fotografia registrada:</Text>
+{fiscalizacao.foto ? (
+  <Image source={{ uri: fiscalizacao.foto }} style={styles.foto} />
+) : (
+  <Text style={styles.fotoPlaceholder}>Sem imagem</Text>
+)}
+
           </View>
         ))
       )}
