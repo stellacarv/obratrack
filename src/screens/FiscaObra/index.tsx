@@ -57,7 +57,7 @@ const FiscaObra = () => {
   useEffect(() => {
     const carregarObras = async () => {
       try {
-        const response = await fetch("http://192.168.1.100:3000/api/obras");
+        const response = await fetch("http://192.168.1.103:3000/api/obras");
         const data = await response.json();
         setObras(data);
       } catch (error) {
@@ -148,7 +148,7 @@ const FiscaObra = () => {
 
     try {
       const response = await fetch(
-        "http://192.168.1.100:3000/api/fiscalizacoes",
+        "http://192.168.1.103:3000/api/fiscalizacoes",
         {
           method: "POST",
           headers: {
