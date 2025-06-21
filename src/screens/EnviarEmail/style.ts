@@ -17,13 +17,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     marginBottom: 24,
-    color: '##666',
+    color: '#4B712D',
   },
   instruction: {
-    fontSize: 14,
+    fontSize: 12,
     textAlign: 'center',
     marginBottom: 16,
-    color: '##666',
+    color: '#4B712D',
   },
   inputContainer: {
     marginBottom: 24,
