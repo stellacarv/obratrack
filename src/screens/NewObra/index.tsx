@@ -98,7 +98,7 @@ const NewObra = () => {
 };
 
 const handleSave = async () => {
-  // Verificação manual para campos específicos
+  
   if (
     obra.nome.trim() === '' ||
     obra.responsavel.trim() === '' ||
@@ -137,10 +137,12 @@ const handleSave = async () => {
 
     const data = await response.json();
 
-    if (response.ok) {
-      Alert.alert('Sucesso', 'Obra cadastrada com sucesso!');
-      navigation.goBack();
-    } else {
+   if (response.ok) {
+  Alert.alert('Sucesso', 'Obra cadastrada com sucesso!');
+  navigation.navigate('Home', { atualizar: true }); 
+}
+
+else {
       const erro = data?.errors?.[0]?.msg || data.message || 'Erro ao cadastrar obra';
       Alert.alert('Erro', erro);
     }

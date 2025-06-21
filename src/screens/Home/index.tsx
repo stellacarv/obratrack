@@ -19,7 +19,7 @@ interface Obra {
   const [obras, setObras] = useState<Obra[]>([]);
   const [carregando, setCarregando] = useState(true);
 
-  // Aqui você coloca o IP do seu computador
+
   const API_URL = 'http://192.168.1.103:3000/api/obras';
 
   useEffect(() => {

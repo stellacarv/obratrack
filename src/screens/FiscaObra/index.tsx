@@ -306,7 +306,7 @@ const FiscaObra = () => {
             style={{
               flex: 1,
               justifyContent: "flex-end",
-              backgroundColor: "rgba(0,0,0,0.4)",
+              backgroundColor: "rgba(0,0,0,0.5)",
             }}
           >
             <View style={styles.modalPicker}>

@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 8,
     fontSize: 16,
-    backgroundColor: "#fff",
+    backgroundColor: "#ddffdb",
     marginTop: 8,
     height: 40,
     justifyContent: "center",
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     color: "#314C1C",
   },
   modalPicker: {
-    backgroundColor: "#fff",
+    backgroundColor: "#ddffdb",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 20,
@@ -79,7 +79,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   modalPickerContainer: {
-    backgroundColor: "#fff",
+    backgroundColor: "#314C1C",
+    borderRadius: 8,
   },
   input: {
     borderWidth: 1,
