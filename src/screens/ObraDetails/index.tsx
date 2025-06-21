@@ -159,7 +159,8 @@ type Fiscalizacao = {
             <Text style={styles.fiscalizacaoText}><Text style={styles.infoLabel}>Observações:</Text> {fiscalizacao.observacoes}</Text>
             <Text style={styles.fotosTitle}>Fotografia registrada:</Text>
 {fiscalizacao.foto ? (
-  <Image source={{ uri: fiscalizacao.foto }} style={styles.foto} />
+  <Image source={{ uri: fiscalizacao.foto }}
+  style={styles.imagemFiscalizacao} />
 ) : (
   <Text style={styles.fotoPlaceholder}>Sem imagem</Text>
 )}
