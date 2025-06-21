@@ -23,14 +23,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 28,
     fontWeight: 'bold',
     marginTop: 16,
     marginBottom: 8,
+    color: "#314C1C",
+    alignItems: "center",
+    fontStyle: "italic"
   },
   sectionSubtitle: {
-    fontSize: 14,
-    color: '#666',
+    fontSize: 16,
+    color: '#476A2C',
     marginBottom: 16,
   },
   obraName: {
@@ -38,7 +41,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginVertical: 16,
-    color: '#333',
+    color: '#314C1C',
   },
   fotoContainer: {
     height: 200,
@@ -47,8 +50,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 16,
     borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#ddd',
+    borderWidth: 3,
+    borderColor: '#51FF00',
   },
   foto: {
     width: '100%',
@@ -115,7 +118,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 12,
     marginBottom: 4,
-    color: "#ddffdb"
+    color: "#51FF00"
   },
   fotoLink: {
     color: '#8DAB76',
