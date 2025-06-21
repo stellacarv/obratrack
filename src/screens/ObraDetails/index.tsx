@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, Image, Linking, ActivityIndicator } from 'react-native';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute, useIsFocused } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../@types/navigation';
 import styles from './style';
@@ -28,10 +28,12 @@ type Fiscalizacao = {
   foto: string;
 };
 
-const ObraDetails = () => {
+  const ObraDetails = () => {
   const navigation = useNavigation<ObraDetailsNavigationProp>();
   const route = useRoute<ObraDetailsRouteProp>();
   const { obraId } = route.params;
+
+  const isFocused = useIsFocused();
 
   const [obra, setObra] = useState<Obra | null>(null);
   const [fiscalizacoes, setFiscalizacoes] = useState<Fiscalizacao[]>([]);
@@ -53,9 +55,10 @@ const ObraDetails = () => {
         setLoading(false);
       }
     };
-
+     if (isFocused) {
     fetchObraAndFiscalizacoes();
-  }, [obraId]);
+  }
+}, [isFocused]);
 
   const handleEnviarEmail = () => {
     if (obra) {
