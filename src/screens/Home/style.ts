@@ -7,13 +7,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#ddffdb',
   },
   header: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
     marginBottom: 8,
+    color: "#314C1C",
+    fontStyle: "italic",
   },
   subheader: {
     fontSize: 16,
-    color: '#314C1C',
+    color: '#4B712D',
     marginBottom: 16,
   },
   divider: {
@@ -22,15 +24,18 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
   card: {
-    backgroundColor: '#4B712D',
+    backgroundColor: '#73935A',
     padding: 16,
-    borderRadius: 8,
     marginBottom: 16,
+    borderRadius: 10,
+    borderWidth: 4,
+    borderColor: "#51FF00"
   },
   cardTitle: {
     fontWeight: 'bold',
     marginBottom: 8,
-    color: "#ddffdb"
+    color: "#ddffdb",
+    fontStyle: "italic"
   },
   cardDivider: {
     height: 1,
