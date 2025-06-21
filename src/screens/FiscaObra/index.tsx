@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,45 +7,68 @@ import {
   ScrollView,
   Alert,
   Keyboard,
-  TouchableWithoutFeedback
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import * as ImagePicker from 'expo-image-picker';
-import * as Location from 'expo-location';
-import { Camera } from 'expo-camera';
-import RNPickerSelect from 'react-native-picker-select';
-import styles from './style';
+  TouchableWithoutFeedback,
+  Modal,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
+import * as Location from "expo-location";
+import { Camera } from "expo-camera";
+import { Picker } from "@react-native-picker/picker";
+import styles from "./style";
 
 const FiscaObra = () => {
   const navigation = useNavigation();
   const [fiscalizacao, setFiscalizacao] = useState({
     obraRelacionada: null as string | null,
-    dataFiscalizacao: '',
-    statusObra: '',
+    dataFiscalizacao: "",
+    statusObra: "",
     localizacao: null as Location.LocationObject | null,
     foto: null as string | null,
-    descricao: '',
+    descricao: "",
   });
-  const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
-  const [locationStatus, setLocationStatus] = useState<string>('');
+  const [hasCameraPermission, setHasCameraPermission] = useState<
+    boolean | null
+  >(null);
+  const [locationStatus, setLocationStatus] = useState<string>("");
+  const [showPicker, setShowPicker] = useState<boolean>(false);
+  const [obras, setObras] = useState<any[]>([]);
+  const [carregandoObras, setCarregandoObras] = useState<boolean>(true);
 
-  const listaObras = [
-    { label: 'Construção Escola Jardim', value: '685359d05a5553bd373e3256' },
-    { label: 'Edifício Aurora', value: '685468159c13f5b0f6871728' },
-    { label: 'Edifício Alpha', value: '685486579c13f5b0f687172d' },
-    { label: 'Reforma no restaurante Coco Bambu', value: '68548b4c9c13f5b0f6871732' },
-  ];
+  const listaObras = obras.map((obra) => ({
+    label: obra.nome,
+    value: obra._id,
+  }));
 
   useEffect(() => {
     (async () => {
-      const { status: cameraStatus } = await Camera.requestCameraPermissionsAsync();
-      setHasCameraPermission(cameraStatus === 'granted');
+      const { status: cameraStatus } =
+        await Camera.requestCameraPermissionsAsync();
+      setHasCameraPermission(cameraStatus === "granted");
 
-      const { status: locationStatus } = await Location.requestForegroundPermissionsAsync();
-      if (locationStatus !== 'granted') {
-        setLocationStatus('Permissão de localização negada');
+      const { status: locationStatus } =
+        await Location.requestForegroundPermissionsAsync();
+      if (locationStatus !== "granted") {
+        setLocationStatus("Permissão de localização negada");
       }
     })();
+  }, []);
+
+  useEffect(() => {
+    const carregarObras = async () => {
+      try {
+        const response = await fetch("http://192.168.1.100:3000/api/obras");
+        const data = await response.json();
+        setObras(data);
+      } catch (error) {
+        console.error("Erro ao buscar obras:", error);
+        Alert.alert("Erro", "Não foi possível carregar as obras");
+      } finally {
+        setCarregandoObras(false);
+      }
+    };
+
+    carregarObras();
   }, []);
 
   const handleInputChange = (field: string, value: string) => {
@@ -54,7 +77,10 @@ const FiscaObra = () => {
 
   const takePhoto = async () => {
     if (hasCameraPermission === false) {
-      Alert.alert('Permissão negada', 'Você precisa permitir o acesso à câmera');
+      Alert.alert(
+        "Permissão negada",
+        "Você precisa permitir o acesso à câmera"
+      );
       return;
     }
 
@@ -70,7 +96,7 @@ const FiscaObra = () => {
         setFiscalizacao({ ...fiscalizacao, foto: result.assets[0].uri });
       }
     } catch (error) {
-      console.error('Erro ao abrir a câmera:', error);
+      console.error("Erro ao abrir a câmera:", error);
     }
   };
 
@@ -87,7 +113,7 @@ const FiscaObra = () => {
         setFiscalizacao({ ...fiscalizacao, foto: result.assets[0].uri });
       }
     } catch (error) {
-      console.error('Erro ao abrir a galeria:', error);
+      console.error("Erro ao abrir a galeria:", error);
     }
   };
 
@@ -95,62 +121,68 @@ const FiscaObra = () => {
     try {
       let location = await Location.getCurrentPositionAsync({});
       setFiscalizacao({ ...fiscalizacao, localizacao: location });
-      setLocationStatus('Localização obtida com sucesso');
+      setLocationStatus("Localização obtida com sucesso");
     } catch (error) {
-      console.error('Erro ao obter localização:', error);
-      setLocationStatus('Erro ao obter localização');
+      console.error("Erro ao obter localização:", error);
+      setLocationStatus("Erro ao obter localização");
     }
   };
 
   const formatarData = (dataStr: string): string => {
-    const [dia, mes, ano] = dataStr.split('/');
+    const [dia, mes, ano] = dataStr.split("/");
     return `${ano}-${mes}-${dia}T00:00:00.000Z`;
   };
 
   const handleSave = async () => {
     if (
       !fiscalizacao.obraRelacionada ||
-      fiscalizacao.dataFiscalizacao.trim() === '' ||
-      fiscalizacao.statusObra.trim() === '' ||
+      fiscalizacao.dataFiscalizacao.trim() === "" ||
+      fiscalizacao.statusObra.trim() === "" ||
       !fiscalizacao.localizacao ||
       !fiscalizacao.foto ||
-      fiscalizacao.descricao.trim() === ''
+      fiscalizacao.descricao.trim() === ""
     ) {
-      Alert.alert('Erro', 'Por favor, preencha todos os campos obrigatórios.');
+      Alert.alert("Erro", "Por favor, preencha todos os campos obrigatórios.");
       return;
     }
 
     try {
-      const response = await fetch('http://192.168.1.100:3000/api/fiscalizacoes', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          obra: fiscalizacao.obraRelacionada,
-          data: formatarData(fiscalizacao.dataFiscalizacao),
-          status: fiscalizacao.statusObra,
-          observacoes: fiscalizacao.descricao,
-          foto: fiscalizacao.foto,
-          localizacao: {
-            latitude: fiscalizacao.localizacao.coords.latitude,
-            longitude: fiscalizacao.localizacao.coords.longitude,
+      const response = await fetch(
+        "http://192.168.1.100:3000/api/fiscalizacoes",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-        }),
-      });
+          body: JSON.stringify({
+            obra: fiscalizacao.obraRelacionada,
+            data: formatarData(fiscalizacao.dataFiscalizacao),
+            status: fiscalizacao.statusObra,
+            observacoes: fiscalizacao.descricao,
+            foto: fiscalizacao.foto,
+            localizacao: {
+              latitude: fiscalizacao.localizacao.coords.latitude,
+              longitude: fiscalizacao.localizacao.coords.longitude,
+            },
+          }),
+        }
+      );
 
       const data = await response.json();
 
       if (response.ok) {
-        Alert.alert('Sucesso', 'Fiscalização cadastrada com sucesso!');
+        Alert.alert("Sucesso", "Fiscalização cadastrada com sucesso!");
         navigation.goBack();
       } else {
-        const erro = data?.errors?.[0]?.msg || data.message || 'Erro ao criar fiscalização';
-        Alert.alert('Erro', erro);
+        const erro =
+          data?.errors?.[0]?.msg ||
+          data.message ||
+          "Erro ao criar fiscalização";
+        Alert.alert("Erro", erro);
       }
     } catch (error) {
-      console.error('Erro ao salvar fiscalização:', error);
-      Alert.alert('Erro', 'Erro ao conectar com o servidor');
+      console.error("Erro ao salvar fiscalização:", error);
+      Alert.alert("Erro", "Erro ao conectar com o servidor");
     }
   };
 
@@ -161,30 +193,33 @@ const FiscaObra = () => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
+        <View style={styles.header}>
+          <TouchableOpacity onPress={handleCancel}>
+            <Text style={styles.backButton}>{"<"}</Text>
+          </TouchableOpacity>
+          <Text style={styles.title}>CADASTRAR FISCALIZAÇÃO</Text>
+        </View>
 
-       <View style={styles.header}>
-  <TouchableOpacity onPress={handleCancel}>
-    <Text style={styles.backButton}>{'<'}</Text>
-  </TouchableOpacity>
-  <Text style={styles.title}>CADASTRAR FISCALIZAÇÃO</Text>
-</View>
-
-        <Text style={styles.subtitle}>Cadastre uma nova fiscalização nos campos abaixo</Text>
+        <Text style={styles.subtitle}>
+          Cadastre uma nova fiscalização nos campos abaixo
+        </Text>
 
         <View style={styles.formGroup}>
           <Text style={styles.label}>Obra relacionada:</Text>
-          <View style={styles.pickerContainer}>
-            <RNPickerSelect
-              onValueChange={(value) =>
-                setFiscalizacao({ ...fiscalizacao, obraRelacionada: value })
-              }
-              items={listaObras}
-              placeholder={{ label: 'Selecione uma obra...', value: null }}
-              value={fiscalizacao.obraRelacionada}
-              style={pickerSelectStyles}
-              useNativeAndroidPickerStyle={false}
-            />
-          </View>
+          <TouchableOpacity
+            style={styles.input}
+            onPress={() => setShowPicker(true)}
+            disabled={carregandoObras}
+          >
+            <Text style={styles.pickerButtonText}>
+              {carregandoObras
+                ? "Carregando obras..."
+                : fiscalizacao.obraRelacionada
+                ? obras.find((o) => o._id === fiscalizacao.obraRelacionada)
+                    ?.nome
+                : "Selecione uma obra..."}
+            </Text>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.formGroup}>
@@ -192,9 +227,9 @@ const FiscaObra = () => {
           <TextInput
             style={styles.input}
             value={fiscalizacao.dataFiscalizacao}
-            onChangeText={(text) => handleInputChange('dataFiscalizacao', text)}
+            onChangeText={(text) => handleInputChange("dataFiscalizacao", text)}
             placeholder="DD/MM/AAAA"
-            />
+          />
         </View>
 
         <View style={styles.formGroup}>
@@ -202,18 +237,24 @@ const FiscaObra = () => {
           <TextInput
             style={styles.input}
             value={fiscalizacao.statusObra}
-            onChangeText={(text) => handleInputChange('statusObra', text)}
+            onChangeText={(text) => handleInputChange("statusObra", text)}
           />
         </View>
 
         <View style={styles.formGroup}>
           <Text style={styles.label}>Localização:</Text>
-          <TouchableOpacity style={styles.locationButton} onPress={getCurrentLocation}>
-            <Text style={styles.locationButtonText}>OBTER LOCALIZAÇÃO ATUAL</Text>
+          <TouchableOpacity
+            style={styles.locationButton}
+            onPress={getCurrentLocation}
+          >
+            <Text style={styles.locationButtonText}>
+              OBTER LOCALIZAÇÃO ATUAL
+            </Text>
           </TouchableOpacity>
           {fiscalizacao.localizacao && (
             <Text style={styles.locationInfo}>
-              Lat: {fiscalizacao.localizacao.coords.latitude.toFixed(4)}, Long: {fiscalizacao.localizacao.coords.longitude.toFixed(4)}
+              Lat: {fiscalizacao.localizacao.coords.latitude.toFixed(4)}, Long:{" "}
+              {fiscalizacao.localizacao.coords.longitude.toFixed(4)}
             </Text>
           )}
           <Text style={styles.locationStatus}>{locationStatus}</Text>
@@ -229,7 +270,9 @@ const FiscaObra = () => {
               <Text style={styles.photoButtonText}>FOTOTECA</Text>
             </TouchableOpacity>
           </View>
-          {fiscalizacao.foto && <Text style={styles.photoInfo}>Foto selecionada</Text>}
+          {fiscalizacao.foto && (
+            <Text style={styles.photoInfo}>Foto selecionada</Text>
+          )}
         </View>
 
         <View style={styles.formGroup}>
@@ -237,7 +280,7 @@ const FiscaObra = () => {
           <TextInput
             style={[styles.input, styles.multilineInput]}
             value={fiscalizacao.descricao}
-            onChangeText={(text) => handleInputChange('descricao', text)}
+            onChangeText={(text) => handleInputChange("descricao", text)}
             multiline
             numberOfLines={4}
           />
@@ -251,35 +294,58 @@ const FiscaObra = () => {
             <Text style={styles.saveButtonText}>SALVAR</Text>
           </TouchableOpacity>
         </View>
+
+        {/* Modal do Picker */}
+        <Modal
+          visible={showPicker}
+          transparent={true}
+          animationType="slide"
+          onRequestClose={() => setShowPicker(false)}
+        >
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "flex-end",
+              backgroundColor: "rgba(0,0,0,0.5)",
+            }}
+          >
+            <View style={styles.modalPicker}>
+              <View style={styles.modalHeader}>
+                <Text style={styles.modalTitle}>Selecione uma obra</Text>
+                <TouchableOpacity
+                  style={styles.modalCloseButton}
+                  onPress={() => setShowPicker(false)}
+                >
+                  <Text style={styles.modalCloseButtonText}>Fechar</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.modalPickerContainer}>
+                <Picker
+                  selectedValue={fiscalizacao.obraRelacionada}
+                  onValueChange={(value) => {
+                    setFiscalizacao({
+                      ...fiscalizacao,
+                      obraRelacionada: value,
+                    });
+                    setShowPicker(false);
+                  }}
+                >
+                  <Picker.Item label="Selecione uma obra..." value={null} />
+                  {listaObras.map((obra) => (
+                    <Picker.Item
+                      key={obra.value}
+                      label={obra.label}
+                      value={obra.value}
+                    />
+                  ))}
+                </Picker>
+              </View>
+            </View>
+          </View>
+        </Modal>
       </ScrollView>
     </TouchableWithoutFeedback>
   );
-};
-
-const pickerSelectStyles = {
-  inputIOS: {
-    fontSize: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    color: 'black',
-    backgroundColor: '#fff',
-  },
-  inputAndroid: {
-    fontSize: 16,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    color: 'black',
-    backgroundColor: '#fff',
-  },
-  placeholder: {
-    color: '#888',
-  },
 };
 
 export default FiscaObra;

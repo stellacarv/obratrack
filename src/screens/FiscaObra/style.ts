@@ -1,29 +1,29 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#DDFFDB',
+    backgroundColor: "#DDFFDB",
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 16,
   },
   backButton: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginRight: 16,
-    color: '#314C1C',
+    color: "#314C1C",
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   subtitle: {
     fontSize: 16,
-    color: '#666',
+    color: "#666",
     marginBottom: 24,
   },
   formGroup: {
@@ -31,99 +31,135 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 8,
   },
-  pickerContainer: {
+  pickerButton: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#314C1C",
     borderRadius: 8,
-    paddingHorizontal: 10,
-    paddingVertical: 12,
-    marginBottom: 10,
-    backgroundColor: '#fff',
-    marginTop: 8,       // <-- Adicionado
-    zIndex: 10,         // <-- Adicionado (resolve problemas de toque)
+    padding: 8,
+    fontSize: 16,
+    backgroundColor: "#fff",
+    marginTop: 8,
+    height: 40,
+    justifyContent: "center",
+  },
+  pickerButtonText: {
+    fontSize: 16,
+    color: "#314C1C",
+  },
+  modalPicker: {
+    backgroundColor: "#fff",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 20,
+    maxHeight: "50%",
+  },
+  modalHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
+    paddingBottom: 10,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#314C1C",
+  },
+  modalCloseButton: {
+    padding: 8,
+  },
+  modalCloseButtonText: {
+    fontSize: 16,
+    color: "#314C1C",
+    fontWeight: "bold",
+  },
+  modalPickerContainer: {
+    backgroundColor: "#fff",
   },
   input: {
     borderWidth: 1,
-    borderColor: '#314C1C',
+    borderColor: "#314C1C",
     borderRadius: 8,
     padding: 12,
     fontSize: 16,
   },
   multilineInput: {
     minHeight: 100,
-    textAlignVertical: 'top',
+    textAlignVertical: "top",
   },
   photoButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   photoButton: {
     flex: 1,
     padding: 12,
-    backgroundColor: '#314C1C',
+    backgroundColor: "#314C1C",
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
     marginHorizontal: 4,
   },
   photoButtonText: {
-    fontWeight: 'bold',
-    color: "#ddffdb"
+    fontWeight: "bold",
+    color: "#ddffdb",
   },
   photoInfo: {
     marginTop: 8,
-    color: '#314C1C',
-    fontStyle: 'italic',
+    color: "#314C1C",
+    fontStyle: "italic",
   },
   locationButton: {
     padding: 12,
-    backgroundColor: '#314C1C',
+    backgroundColor: "#314C1C",
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
   },
   locationButtonText: {
-    fontWeight: 'bold',
-    color: "#ddffdb"
+    fontWeight: "bold",
+    color: "#ddffdb",
   },
   locationInfo: {
     marginTop: 8,
-    color: '#314C1C',
+    color: "#314C1C",
   },
   locationStatus: {
     marginTop: 4,
-    color: '#314C1C',
+    color: "#314C1C",
     fontSize: 12,
   },
   footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: 24,
   },
   cancelButton: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#314C1C',
+    backgroundColor: "#314C1C",
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
     marginRight: 8,
   },
   cancelButtonText: {
-    fontWeight: 'bold',
-    color: '#ddffdb',
+    fontWeight: "bold",
+    color: "#ddffdb",
   },
   saveButton: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#314C1C',
+    backgroundColor: "#314C1C",
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
     marginLeft: 8,
   },
   saveButtonText: {
-    fontWeight: 'bold',
-    color: '#ddffdb',
+    fontWeight: "bold",
+    color: "#ddffdb",
   },
 });
 
