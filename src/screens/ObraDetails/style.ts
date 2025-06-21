@@ -59,6 +59,13 @@ const styles = StyleSheet.create({
     color: '#888',
     fontSize: 16,
   },
+  imagemFiscalizacao: {
+  width: '100%',
+  height: 200,
+  borderRadius: 8,
+  resizeMode: 'cover', 
+  marginTop: 8,
+},
   infoContainer: {
     backgroundColor: '#314C1C',
     padding: 16,
