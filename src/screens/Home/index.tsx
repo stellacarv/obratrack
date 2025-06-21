@@ -52,6 +52,7 @@ type HomeRouteProp = RouteProp<RootStackParamList, 'Home'>;
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>OBRAS CADASTRADAS</Text>
+            <Text style={styles.subheader}>Veja a  lista das obras cadastradas</Text>
       {obras.length === 0 ? (
         <Text style={{ textAlign: 'center', marginTop: 20 }}>Nenhuma obra cadastrada.</Text>
       ) : (
