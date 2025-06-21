@@ -18,8 +18,9 @@ const styles = StyleSheet.create({
     color: '#314C1C',
   },
   title: {
-    fontSize: 20,
+    fontSize: 26,
     fontWeight: 'bold',
+    color: "#314C1C"
   },
   subtitle: {
     fontSize: 16,
@@ -95,6 +96,8 @@ const styles = StyleSheet.create({
     padding: 16,
     color: '#314C1C',
     borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#314C1C",
     alignItems: 'center',
     marginRight: 8,
   },
