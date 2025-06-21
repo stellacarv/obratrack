@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, TextInput, ScrollView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
 import { Camera } from 'expo-camera';
-import { RootStackParamList } from '../../@types/navigation';
 import styles from './style';
-
-type NavigationProps = StackNavigationProp<RootStackParamList, 'NewObra'>;
 
 const formatarData = (dataStr: string): string => {
   const [dia, mes, ano] = dataStr.split('/');
@@ -16,8 +12,7 @@ const formatarData = (dataStr: string): string => {
 };
 
 const NewObra = () => {
-  const navigation = useNavigation<NavigationProps>();
-
+  const navigation = useNavigation<any>();
   const [obra, setObra] = useState({
     nome: '',
     responsavel: '',
@@ -27,7 +22,6 @@ const NewObra = () => {
     localizacao: null as Location.LocationObject | null,
     descricao: '',
   });
-
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
   const [locationStatus, setLocationStatus] = useState<string>('');
 
@@ -35,7 +29,6 @@ const NewObra = () => {
     (async () => {
       const { status: cameraStatus } = await Camera.requestCameraPermissionsAsync();
       setHasCameraPermission(cameraStatus === 'granted');
-
       const { status: locationStatus } = await Location.requestForegroundPermissionsAsync();
       if (locationStatus !== 'granted') {
         setLocationStatus('Permissão de localização negada');
@@ -52,14 +45,12 @@ const NewObra = () => {
       Alert.alert('Permissão negada', 'Você precisa permitir o acesso à câmera');
       return;
     }
-
     const result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
-
     if (!result.canceled) {
       setObra({ ...obra, foto: result.assets[0].uri });
     }
@@ -72,7 +63,6 @@ const NewObra = () => {
       aspect: [4, 3],
       quality: 1,
     });
-
     if (!result.canceled) {
       setObra({ ...obra, foto: result.assets[0].uri });
     }
@@ -80,11 +70,10 @@ const NewObra = () => {
 
   const getCurrentLocation = async () => {
     try {
-      let location = await Location.getCurrentPositionAsync({});
+      const location = await Location.getCurrentPositionAsync({});
       setObra({ ...obra, localizacao: location });
       setLocationStatus('Localização obtida com sucesso');
-    } catch (error) {
-      console.error('Erro ao obter localização:', error);
+    } catch {
       setLocationStatus('Erro ao obter localização');
     }
   };
@@ -99,7 +88,7 @@ const NewObra = () => {
       !obra.foto ||
       !obra.localizacao
     ) {
-      Alert.alert('Erro', 'Por favor, preencha todos os campos corretamente.');
+      Alert.alert('Erro', 'Preencha todos os campos.');
       return;
     }
 
@@ -122,31 +111,24 @@ const NewObra = () => {
       });
 
       if (response.ok) {
-        Alert.alert('Sucesso', 'Obra cadastrada com sucesso!');
-        navigation.navigate('Home', { atualizar: true });
+        Alert.alert('Sucesso', 'Obra cadastrada!');
+        navigation.navigate('Home', { atualizar: true }); // Atualiza Home
       } else {
         const data = await response.json();
-        const erro = data?.errors?.[0]?.msg || data.message || 'Erro ao cadastrar obra';
-        Alert.alert('Erro', erro);
+        Alert.alert('Erro', data.message || 'Erro ao salvar.');
       }
-    } catch (error) {
-      console.error('Erro ao enviar:', error);
-      Alert.alert('Erro', 'Não foi possível conectar ao servidor');
+    } catch (err) {
+      Alert.alert('Erro', 'Erro de rede');
     }
   };
 
   return (
     <ScrollView style={styles.container}>
-      {/* ... sua UI continua igual aqui ... */}
-      {/* Botões no final */}
-      <View style={styles.footer}>
-        <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.goBack()}>
-          <Text style={styles.cancelButtonText}>CANCELAR</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-          <Text style={styles.saveButtonText}>SALVAR</Text>
-        </TouchableOpacity>
-      </View>
+      {/* Botões, inputs e localização conforme seu layout anterior */}
+      {/* ... */}
+      <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
+        <Text style={styles.saveButtonText}>SALVAR</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
